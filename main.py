@@ -49,8 +49,6 @@ if __name__ == "__main__":
 
         break
 
-    # mangaListUrl = input('Manga List Url: ')
-
     mangaList = []
 
     html = http.request('GET', MANAMOA_URL + mangaListUrl).data.decode('utf-8')
@@ -60,15 +58,9 @@ if __name__ == "__main__":
     if not os.path.exists('%s/%s' % (downloadPath, mangaTitle)):
         os.mkdir('%s/%s' % (downloadPath, mangaTitle))
 
-    # print(MANAMOA_URL + mangaListUrl)
-
-    # print(soup.findAll('div', {'class': 'slot'}))
-
     for i in map(str, soup.findAll('div', {'class': 'slot'})):
         mangaList.append((re.search(r'.*(?=<span[^>])', i).group().replace(mangaTitle, '').strip(),
                           re.search(r'(?<=<a href=").*(?=">)', i).group().replace('&amp;', '&')))
-
-    # print(mangaList)
 
     os.mkdir('./tmp/')
 
@@ -105,7 +97,6 @@ if __name__ == "__main__":
                         break
 
                     except urllib3.exceptions.SSLError:
-                        # print('SSLError_2')
                         pass
 
                     except urllib3.exceptions.MaxRetryError:
@@ -114,7 +105,6 @@ if __name__ == "__main__":
                 break
 
             except urllib3.exceptions.SSLError:
-                # print('SSLError')
                 pass
 
             except urllib3.exceptions.MaxRetryError:
